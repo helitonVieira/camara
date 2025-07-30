@@ -2,16 +2,17 @@ package com.jh.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.jh.domain.Projeto;
+import com.jh.domain.Votacao;
 
 //import javax.validation.constraints.NotEmpty;
 
 //import org.hibernate.validator.constraints.Length;
 
-public class ProjetoDTO implements Serializable {
+public class ProjetoVotacaoResponseDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// @NotEmpty(message="Preenchimento obrigatório")
@@ -26,29 +27,29 @@ public class ProjetoDTO implements Serializable {
 	private Integer sim = 0;
 	private Integer nao = 0;
 	private Integer abstencao = 0;
-	private String indAbrirVotacao;
-	private String indPainelVotacao;
-	private Integer codMunicipio;
-	private Integer codVereador;
+	private MunicipioResponseDTO municipio;
+	private VereadorResponseDTO vereador;	 
+    private List<VotacaoProjetoDTO> votacao;
 
-	public ProjetoDTO() {
+	public ProjetoVotacaoResponseDTO() {
 	}
 
-	public ProjetoDTO(Projeto obj) {
-		this.codProjeto = obj.getCodProjeto();
-		this.numProjeto = obj.getNumProjeto();
-		this.nomProjeto = obj.getNomProjeto();
-		this.desProjeto = obj.getDesProjeto();
-		this.pdf = obj.getPdf();
-		this.flgVotacaoProj = obj.getFlgVotacaoProj();
-		this.dtaVotacao = obj.getDtaVotacao();
-		this.sim = obj.getSim();
-		this.nao = obj.getNao();
-		this.abstencao = obj.getAbstencao();
-		this.indAbrirVotacao = obj.getIndAbrirVotacao();
-		this.indPainelVotacao = obj.getIndPainelVotacao();
-		this.codMunicipio = obj.getMunicipio().getCodMunicipio();
-		this.codVereador = obj.getVereador().getCodVereador();
+	public ProjetoVotacaoResponseDTO(Projeto obj) {
+		codProjeto = obj.getCodProjeto();
+		numProjeto = obj.getNumProjeto();
+		nomProjeto = obj.getNomProjeto();
+		desProjeto = obj.getDesProjeto();
+		pdf = obj.getPdf();
+		flgVotacaoProj = obj.getFlgVotacaoProj();
+		dtaVotacao = obj.getDtaVotacao();
+		sim = obj.getSim();
+		nao = obj.getNao();
+		abstencao = obj.getAbstencao();
+		municipio = new MunicipioResponseDTO(obj.getMunicipio());
+		vereador = new VereadorResponseDTO(obj.getVereador());
+		
+		List<Votacao> list = obj.getVotacao();
+		votacao = list.stream().map(obj2 -> new VotacaoProjetoDTO(obj2)).collect(Collectors.toList());
 	}
 
 	public Integer getCodProjeto() {
@@ -130,37 +131,30 @@ public class ProjetoDTO implements Serializable {
 	public void setAbstencao(Integer abstencao) {
 		this.abstencao = abstencao;
 	}
-	
-	public String getIndAbrirVotacao() {
-		return indAbrirVotacao;
+
+	public MunicipioResponseDTO getMunicipio() {
+		return municipio;
 	}
 
-	public void setIndAbrirVotacao(String indAbrirVotacao) {
-		this.indAbrirVotacao = indAbrirVotacao;
+	public void setMunicipio(MunicipioResponseDTO municipio) {
+		this.municipio = municipio;
 	}
 
-	public String getIndPainelVotacao() {
-		return indPainelVotacao;
+	public VereadorResponseDTO getVereador() {
+		return vereador;
 	}
 
-	public void setIndPainelVotacao(String indPainelVotacao) {
-		this.indPainelVotacao = indPainelVotacao;
+	public void setVereador(VereadorResponseDTO vereador) {
+		this.vereador = vereador;
 	}
 
-	public Integer getCodMunicipio() {
-		return codMunicipio;
+	public List<VotacaoProjetoDTO> getVotacao() {
+		return votacao;
 	}
 
-	public void setCodMunicipio(Integer codMunicipio) {
-		this.codMunicipio = codMunicipio;
-	}
+	public void setVotacao(List<VotacaoProjetoDTO> votacao) {
+		this.votacao = votacao;
+	}	
 
-	public Integer getCodVereador() {
-		return codVereador;
-	}
-
-	public void setCodVereador(Integer codVereador) {
-		this.codVereador = codVereador;
-	}
 
 }

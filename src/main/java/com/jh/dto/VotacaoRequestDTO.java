@@ -10,22 +10,22 @@ import com.jh.domain.Votacao;
 
 //import org.hibernate.validator.constraints.Length;
 
-public class VotacaoDTO implements Serializable {
+public class VotacaoRequestDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer codVotacao;     
-    private Vereador vereador;     
-    private Projeto projeto;     
+    private Integer vereador;     
+    private Integer projeto;     
     private String voto;
 	
 	
-	public VotacaoDTO() {
+	public VotacaoRequestDTO() {
 	}
 	
-	public VotacaoDTO(Votacao obj) {
+	public VotacaoRequestDTO(Votacao obj) {
 		codVotacao = obj.getCodVotacao();
-		vereador = obj.getVereador();
-		projeto = obj.getProjeto();
+		vereador = obj.getVereador().getCodVereador();
+		projeto = obj.getProjeto().getCodProjeto();
 		voto = obj.getVoto();
 	}
 
@@ -37,19 +37,19 @@ public class VotacaoDTO implements Serializable {
 		this.codVotacao = codVotacao;
 	}
 
-	public Vereador getVereador() {
+	public Integer getVereador() {
 		return vereador;
 	}
 
-	public void setVereador(Vereador vereador) {
+	public void setVereador(Integer vereador) {
 		this.vereador = vereador;
 	}
 
-	public Projeto getProjeto() {
+	public Integer getProjeto() {
 		return projeto;
 	}
 
-	public void setProjeto(Projeto projeto) {
+	public void setProjeto(Integer projeto) {
 		this.projeto = projeto;
 	}
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.jh.domain.Votacao;
 import com.jh.dto.VotacaoDTO;
+import com.jh.dto.VotacaoRequestDTO;
 import com.jh.repositories.VotacaoRepository;
 import com.jh.services.exceptions.DataIntegrityException;
 import com.jh.services.exceptions.ObjectNotFoundException;
@@ -58,11 +59,8 @@ public class VotacaoService {
 		return repo.findAll(pageRequest);
 	}
 	
-	public Votacao fromDTO(VotacaoDTO objDto) {
-		return new Votacao(objDto.getCodVotacao(), 
-				objDto.getVereador(), 
-				objDto.getProjeto(),
-				objDto.getVoto());
+	public Votacao fromDTO(VotacaoRequestDTO objDto) {
+		return new Votacao(objDto);
 	}
 
 

@@ -24,6 +24,8 @@ public class ProjetoResponseDTO implements Serializable {
 	private Integer sim = 0;
 	private Integer nao = 0;
 	private Integer abstencao = 0;
+	private String indAbrirVotacao;
+	private String indPainelVotacao;
 	private MunicipioResponseDTO municipio;
 	private VereadorResponseDTO vereador;	 
 
@@ -32,18 +34,20 @@ public class ProjetoResponseDTO implements Serializable {
 	}
 
 	public ProjetoResponseDTO(Projeto obj) {
-		codProjeto = obj.getCodProjeto();
-		numProjeto = obj.getNumProjeto();
-		nomProjeto = obj.getNomProjeto();
-		desProjeto = obj.getDesProjeto();
-		pdf = obj.getPdf();
-		flgVotacaoProj = obj.getFlgVotacaoProj();
-		dtaVotacao = obj.getDtaVotacao();
-		sim = obj.getSim();
-		nao = obj.getNao();
-		abstencao = obj.getAbstencao();
-		municipio = new MunicipioResponseDTO(obj.getMunicipio());
-		vereador = new VereadorResponseDTO(obj.getVereador());
+		this.codProjeto = obj.getCodProjeto();
+		this.numProjeto = obj.getNumProjeto();
+		this.nomProjeto = obj.getNomProjeto();
+		this.desProjeto = obj.getDesProjeto();
+		this.pdf = obj.getPdf();
+		this.flgVotacaoProj = obj.getFlgVotacaoProj();
+		this.dtaVotacao = obj.getDtaVotacao();
+		this.sim = obj.getSim();
+		this.nao = obj.getNao();
+		this.abstencao = obj.getAbstencao();
+		this.indAbrirVotacao = obj.getIndAbrirVotacao();
+		this.indPainelVotacao = obj.getIndPainelVotacao();
+		this.municipio = new MunicipioResponseDTO(obj.getMunicipio());
+		this.vereador = new VereadorResponseDTO(obj.getVereador());
 	}
 
 	public Integer getCodProjeto() {
@@ -124,6 +128,22 @@ public class ProjetoResponseDTO implements Serializable {
 
 	public void setAbstencao(Integer abstencao) {
 		this.abstencao = abstencao;
+	}
+
+	public String getIndAbrirVotacao() {
+		return indAbrirVotacao;
+	}
+
+	public void setIndAbrirVotacao(String indAbrirVotacao) {
+		this.indAbrirVotacao = indAbrirVotacao;
+	}
+
+	public String getIndPainelVotacao() {
+		return indPainelVotacao;
+	}
+
+	public void setIndPainelVotacao(String indPainelVotacao) {
+		this.indPainelVotacao = indPainelVotacao;
 	}
 
 	public MunicipioResponseDTO getMunicipio() {

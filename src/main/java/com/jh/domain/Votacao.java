@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.jh.dto.VotacaoRequestDTO;
+
 
 
 @Entity
@@ -42,15 +44,22 @@ public class Votacao implements Serializable {
     	
     }
     
-    public Votacao(Integer codVotacao,Integer vereadorId,Integer projetoId ,String voto ) {
-    	this.codVotacao = codVotacao;
+    public Votacao(Integer codVotacao,Vereador vereador,Projeto projeto ,String voto ) {
+    	this.codVotacao = codVotacao;    	
+    	this.vereador = vereador;    	
+    	this.projeto = projeto;
+    	this.voto = voto;
     	
-    	this.vereador = new Vereador();
-    	this.vereador.setCodVereador(vereadorId);
+    }
+    
+    public Votacao(VotacaoRequestDTO dto ) {
+    	this.codVotacao = dto.getCodVotacao();    	
+    	
+    	this.vereador = new Vereador(); 
+    	this.vereador.setCodVereador(dto.getVereador());
     	
     	this.projeto = new Projeto();
-    	this.projeto.setCodProjeto(projetoId);
-    	
+    	this.projeto.setCodProjeto(dto.getProjeto());
     	this.voto = voto;
     	
     }

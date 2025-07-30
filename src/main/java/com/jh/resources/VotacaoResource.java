@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.jh.domain.Votacao;
 import com.jh.dto.VotacaoDTO;
+import com.jh.dto.VotacaoRequestDTO;
 import com.jh.services.VotacaoService;
 
 @RestController
@@ -35,7 +36,7 @@ public class VotacaoResource {
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(/* @Valid */ @RequestBody VotacaoDTO objDto) {
+	public ResponseEntity<Void> insert(/* @Valid */ @RequestBody VotacaoRequestDTO objDto) {
 		Votacao obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getCodVotacao()).toUri();
@@ -44,7 +45,7 @@ public class VotacaoResource {
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{codVotacao}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(/* @Valid */ @RequestBody VotacaoDTO objDto, @PathVariable Integer codVotacao) {
+	public ResponseEntity<Void> update(/* @Valid */ @RequestBody VotacaoRequestDTO objDto, @PathVariable Integer codVotacao) {
 		Votacao obj = service.fromDTO(objDto);
 		obj.setCodVotacao(codVotacao);
 		obj = service.update(obj);

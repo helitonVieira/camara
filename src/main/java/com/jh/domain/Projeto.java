@@ -35,7 +35,13 @@ public class Projeto implements Serializable {
 	private Integer sim = 0;
 	private Integer nao = 0;
 	private Integer abstencao = 0;
-
+	
+	@Column(name = "ind_abrir_votacao")
+	private String indAbrirVotacao;
+	
+	@Column(name = "ind_painel_votacao")
+	private String indPainelVotacao;
+	
 	@ManyToOne
 	@JoinColumn(name = "cod_municipio")
 	private Municipio municipio;
@@ -54,8 +60,10 @@ public class Projeto implements Serializable {
 
 	}
 
-	public Projeto(Integer codProjeto, String numProjeto, String nomProjeto, String desProjeto, String pdf, Boolean flgVotacaoProj,
-			Date dtaVotacao, Integer sim, Integer nao, Integer abstencao, Integer municipioId, Integer vereadorId) {
+	public Projeto(Integer codProjeto, String numProjeto, String nomProjeto, String desProjeto, String pdf, 
+			Boolean flgVotacaoProj,Date dtaVotacao, Integer sim, Integer nao, 
+			Integer abstencao, String indAbrirVotacao, String indPainelVotacao, Integer municipioId, Integer vereadorId
+			) {
 		super();
 		this.codProjeto = codProjeto;
 		this.numProjeto = numProjeto;
@@ -67,6 +75,8 @@ public class Projeto implements Serializable {
 		this.sim = sim;
 		this.nao = nao;
 		this.abstencao = abstencao;
+		this.indAbrirVotacao = indAbrirVotacao;
+		this.indPainelVotacao = indPainelVotacao;
 
 		// Criando apenas com ID (sem buscar no banco aqui)
 		this.municipio = new Municipio();
@@ -150,6 +160,22 @@ public class Projeto implements Serializable {
 
 	public Integer getAbstencao() {
 		return abstencao;
+	}	
+
+	public String getIndAbrirVotacao() {
+		return indAbrirVotacao;
+	}
+
+	public void setIndAbrirVotacao(String indAbrirVotacao) {
+		this.indAbrirVotacao = indAbrirVotacao;
+	}
+
+	public String getIndPainelVotacao() {
+		return indPainelVotacao;
+	}
+
+	public void setIndPainelVotacao(String indPainelVotacao) {
+		this.indPainelVotacao = indPainelVotacao;
 	}
 
 	public void setAbstencao(Integer abstencao) {

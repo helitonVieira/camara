@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.jh.domain.Vereador;
 import com.jh.dto.VereadorDTO;
+import com.jh.dto.VereadorResponseDTO;
 import com.jh.services.VereadorService;
 
 @RestController
@@ -32,7 +33,7 @@ public class VereadorResource {
 	public ResponseEntity<VereadorResponseDTO> find(@PathVariable Integer id) {
 		VereadorResponseDTO obj = service.findDTO(id);
 		return ResponseEntity.ok().body(obj);
-	}
+	}	
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
@@ -60,9 +61,9 @@ public class VereadorResource {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<VereadorDTO>> findAll() {
+	public ResponseEntity<List<VereadorResponseDTO>> findAll() {
 		List<Vereador> list = service.findAll();
-		List<VereadorDTO> listDto = list.stream().map(obj -> new VereadorDTO(obj)).collect(Collectors.toList());
+		List<VereadorResponseDTO> listDto = list.stream().map(obj -> new VereadorResponseDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 

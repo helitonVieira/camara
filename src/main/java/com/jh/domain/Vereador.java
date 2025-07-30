@@ -33,6 +33,9 @@ public class Vereador implements Serializable {
 
     @OneToMany(mappedBy = "vereador")
     private List<Votacao> votacao;
+    
+    @OneToMany(mappedBy = "vereador")
+    private List<UsuarioLogado> logins;
 
     public Vereador() {
     	

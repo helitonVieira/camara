@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.jh.domain.Projeto;
 import com.jh.dto.ProjetoDTO;
 import com.jh.dto.ProjetoResponseDTO;
+import com.jh.dto.ProjetoVotacaoResponseDTO;
 import com.jh.services.ProjetoService;
 
 @RestController
@@ -31,6 +32,12 @@ public class ProjetoResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<ProjetoResponseDTO> find(@PathVariable Integer id) {
 		ProjetoResponseDTO obj = service.findDTO(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(value = "/votacao/{id}", method = RequestMethod.GET)
+	public ResponseEntity<ProjetoVotacaoResponseDTO> findVotacao(@PathVariable Integer id) {
+		ProjetoVotacaoResponseDTO obj = service.findVotacaoDTO(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
