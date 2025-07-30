@@ -2,8 +2,6 @@ package com.jh.dto;
 
 import java.io.Serializable;
 
-import com.jh.domain.Projeto;
-import com.jh.domain.Vereador;
 import com.jh.domain.Votacao;
 
 //import javax.validation.constraints.NotEmpty;

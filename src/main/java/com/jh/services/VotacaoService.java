@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.jh.domain.Votacao;
-import com.jh.dto.VotacaoDTO;
 import com.jh.dto.VotacaoRequestDTO;
 import com.jh.repositories.VotacaoRepository;
 import com.jh.services.exceptions.DataIntegrityException;

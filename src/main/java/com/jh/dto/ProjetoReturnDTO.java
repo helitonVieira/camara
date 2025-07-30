@@ -124,6 +124,22 @@ public class ProjetoReturnDTO implements Serializable {
 	public Integer getAbstencao() {
 		return abstencao;
 	}
+	
+	public String getIndAbrirVotacao() {
+		return indAbrirVotacao;
+	}
+
+	public void setIndAbrirVotacao(String indAbrirVotacao) {
+		this.indAbrirVotacao = indAbrirVotacao;
+	}
+
+	public String getIndPainelVotacao() {
+		return indPainelVotacao;
+	}
+
+	public void setIndPainelVotacao(String indPainelVotacao) {
+		this.indPainelVotacao = indPainelVotacao;
+	}
 
 	public void setAbstencao(Integer abstencao) {
 		this.abstencao = abstencao;

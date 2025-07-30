@@ -52,7 +52,7 @@ public class Votacao implements Serializable {
     	
     }
     
-    public Votacao(VotacaoRequestDTO dto ) {
+    public Votacao(VotacaoRequestDTO dto) {
     	this.codVotacao = dto.getCodVotacao();    	
     	
     	this.vereador = new Vereador(); 
@@ -60,7 +60,7 @@ public class Votacao implements Serializable {
     	
     	this.projeto = new Projeto();
     	this.projeto.setCodProjeto(dto.getProjeto());
-    	this.voto = voto;
+    	this.voto = dto.getVoto();
     	
     }
 
