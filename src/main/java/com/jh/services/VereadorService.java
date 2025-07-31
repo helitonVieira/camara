@@ -9,12 +9,17 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jh.domain.Vereador;
+import com.jh.domain.enums.Perfil;
 import com.jh.dto.VereadorDTO;
+import com.jh.dto.VereadorNewDTO;
 import com.jh.dto.VereadorResponseDTO;
 import com.jh.repositories.VereadorRepository;
+import com.jh.security.UserSS;
+import com.jh.services.exceptions.AuthorizationException;
 import com.jh.services.exceptions.DataIntegrityException;
 import com.jh.services.exceptions.ObjectNotFoundException;
 
@@ -24,7 +29,16 @@ public class VereadorService {
 	@Autowired
 	private VereadorRepository repo;
 
+	@Autowired
+	private BCryptPasswordEncoder pe;
+
 	public Vereador find(Integer id) {
+
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
 		Optional<Vereador> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Vereador.class.getName()));
@@ -32,6 +46,12 @@ public class VereadorService {
 
 	public VereadorResponseDTO findDTO(Integer id) {
 		try {
+
+			UserSS user = UserService.authenticated();
+			if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+				throw new AuthorizationException("Acesso negado");
+			}
+
 			Optional<Vereador> obj = repo.findById(id);
 			return new VereadorResponseDTO(obj.get());
 		} catch (ObjectNotFoundException e) {
@@ -62,13 +82,13 @@ public class VereadorService {
 	public List<Vereador> findAll() {
 		return repo.findAll();
 	}
-	
+
 	public List<VereadorResponseDTO> findAll2() {
-		List<Vereador> vereadores = repo.findAll();		
+		List<Vereador> vereadores = repo.findAll();
 		return convertListDto(vereadores);
 	}
-	
-	private List<VereadorResponseDTO> convertListDto(List<Vereador> vereadores){
+
+	private List<VereadorResponseDTO> convertListDto(List<Vereador> vereadores) {
 		List<VereadorResponseDTO> listDto = new ArrayList<>();
 		for (Vereador vereador : vereadores) {
 			listDto.add(new VereadorResponseDTO(vereador));
@@ -82,8 +102,13 @@ public class VereadorService {
 	}
 
 	public Vereador fromDTO(VereadorDTO objDto) {
-		return new Vereador(objDto.getCodVereador(), objDto.getNomVereador(), objDto.getSglPartido(), objDto.getFoto(),
-				objDto.getIndPresidente(), objDto.getMunicipio());
+		return new Vereador(objDto.getCodVereador(), objDto.getNomVereador(), objDto.getEmail(), objDto.getSglPartido(),
+				objDto.getFoto(), objDto.getIndPresidente(), null, objDto.getMunicipio());
+	}
+
+	public Vereador fromDTO(VereadorNewDTO objDto) {
+		return new Vereador(objDto.getCodVereador(), objDto.getNomVereador(), objDto.getEmail(), objDto.getSglPartido(),
+				objDto.getFoto(), objDto.getIndPresidente(), pe.encode(objDto.getSenha()), objDto.getMunicipio());
 	}
 
 	private void updateData(Vereador newObj, Vereador obj) {

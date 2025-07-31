@@ -95,5 +95,15 @@ public class Votacao implements Serializable {
 	public void setVoto(String voto) {
 		this.voto = voto;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(getProjeto().getNomProjeto());
+		builder.append(", Voto: ");
+		builder.append(getVoto());		
+		builder.append("\n");
+		return builder.toString();
+	}
 
 }

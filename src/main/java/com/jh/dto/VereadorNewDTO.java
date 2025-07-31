@@ -9,7 +9,7 @@ import com.jh.domain.Vereador;
 
 //import org.hibernate.validator.constraints.Length;
 
-public class VereadorDTO implements Serializable {
+public class VereadorNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	    private Integer codVereador;
@@ -17,21 +17,23 @@ public class VereadorDTO implements Serializable {
 	    private String email;
 	    private String sglPartido;
 	    private String foto;
-	    private Boolean indPresidente;	
+	    private Boolean indPresidente;	 
+	    private String senha;
 	    private Municipio municipio;
 
 	   
 	
-	public VereadorDTO() {
+	public VereadorNewDTO() {
 	}
 	
-	public VereadorDTO(Vereador obj) {
+	public VereadorNewDTO(Vereador obj) {
 		this.codVereador = obj.getCodVereador();
 		this.nomVereador = obj.getNomVereador();
 		this.email = obj.getEmail();
 		this.sglPartido = obj.getSglPartido();
 		this.foto = obj.getFoto();
 		this.indPresidente = obj.getIndPresidente();
+		this.senha = obj.getSenha();
 		this.municipio = obj.getMunicipio();	
 	}
 
@@ -81,6 +83,14 @@ public class VereadorDTO implements Serializable {
 
 	public void setIndPresidente(Boolean indPresidente) {
 		this.indPresidente = indPresidente;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public Municipio getMunicipio() {

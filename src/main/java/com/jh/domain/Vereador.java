@@ -1,8 +1,25 @@
 package com.jh.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jh.domain.enums.Perfil;
 
 @Entity
 public class Vereador implements Serializable {
@@ -15,6 +32,9 @@ public class Vereador implements Serializable {
 
     @Column(name = "nom_vereador")
     private String nomVereador;
+    
+    @Column(unique=true)
+	private String email;
 
     @Column(name = "sgl_partido")
     private String sglPartido;
@@ -23,7 +43,14 @@ public class Vereador implements Serializable {
 
     @Column(name = "ind_presidente")
     private Boolean indPresidente;
-
+    
+    @JsonIgnore
+    private String senha;
+    
+    @ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();    
+    
     @ManyToOne
     @JoinColumn(name = "cod_municipio")
     private Municipio municipio;
@@ -34,22 +61,26 @@ public class Vereador implements Serializable {
     @OneToMany(mappedBy = "vereador")
     private List<Votacao> votacao;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "vereador")
     private List<UsuarioLogado> logins;
 
     public Vereador() {
-    	
+    	addPerfil(Perfil.CLIENTE);
     }
     
-	public Vereador(Integer codVereador, String nomVereador, String sglPartido, String foto, Boolean indPresidente,
-			Municipio municipio) {
+	public Vereador(Integer codVereador, String nomVereador, String email, String sglPartido, String foto, Boolean indPresidente,
+			String senha, Municipio municipio) {
 		super();
 		this.codVereador = codVereador;
 		this.nomVereador = nomVereador;
+		this.email = email;
 		this.sglPartido = sglPartido;
 		this.foto = foto;
 		this.indPresidente = indPresidente;
-		this.municipio = municipio;		
+		this.municipio = municipio;	
+		this.senha = senha;
+		addPerfil(Perfil.CLIENTE);
 	}
 
 	public Integer getCodVereador() {
@@ -66,6 +97,14 @@ public class Vereador implements Serializable {
 
 	public void setNomVereador(String nomVereador) {
 		this.nomVereador = nomVereador;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSglPartido() {
@@ -92,6 +131,21 @@ public class Vereador implements Serializable {
 		this.indPresidente = indPresidente;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
 	public Municipio getMunicipio() {
 		return municipio;
 	}
@@ -114,6 +168,15 @@ public class Vereador implements Serializable {
 
 	public void setVotacao(List<Votacao> votacao) {
 		this.votacao = votacao;
+	}
+
+	public List<UsuarioLogado> getLogins() {
+		return logins;
+	}
+
+	public void setLogins(List<UsuarioLogado> logins) {
+		this.logins = logins;
 	}    
 
+	
 }

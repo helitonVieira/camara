@@ -213,5 +213,22 @@ public class Projeto implements Serializable {
 	public void setObservacoes(List<Observacao> observacoes) {
 		this.observacoes = observacoes;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Projeto other = (Projeto) obj;
+		if (codProjeto == null) {
+			if (other.codProjeto != null)
+				return false;
+		} else if (!codProjeto.equals(other.codProjeto))
+			return false;
+		return true;
+	}
 
 }

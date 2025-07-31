@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.jh.domain.Vereador;
 import com.jh.dto.VereadorDTO;
+import com.jh.dto.VereadorNewDTO;
 import com.jh.dto.VereadorResponseDTO;
 import com.jh.services.VereadorService;
 
@@ -37,7 +38,7 @@ public class VereadorResource {
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(/* @Valid */ @RequestBody VereadorDTO objDto) {
+	public ResponseEntity<Void> insert(/* @Valid */ @RequestBody VereadorNewDTO objDto) {
 		Vereador obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getCodVereador()).toUri();
