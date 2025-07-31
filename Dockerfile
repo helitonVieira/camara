@@ -5,18 +5,14 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-# Baixa as dependências e compila o projeto
 RUN mvn clean package -DskipTests
 
 # Etapa 2: runtime da aplicação
 FROM eclipse-temurin:11-jdk
 WORKDIR /app
 
-# Copia o JAR gerado para o container final
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/target/camaraBack-0.0.1-SNAPSHOT.jar camaraBack.jar
 
-# Define a porta (importante para o Railway escutar)
 EXPOSE 8080
 
-# Comando para rodar o JAR
 ENTRYPOINT ["java", "-jar", "/app/camaraBack.jar"]
