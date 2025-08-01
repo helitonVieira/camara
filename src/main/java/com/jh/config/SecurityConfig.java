@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/vereador/**",
 			"/municipio/**",
 			"/auth/forgot/**",
-			"/login/**"
+			"/login"
 	};
 
 	@Override
