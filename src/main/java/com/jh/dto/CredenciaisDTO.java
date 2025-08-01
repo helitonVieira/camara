@@ -2,10 +2,14 @@ package com.jh.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CredenciaisDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String email;
+	
+	@JsonProperty("password")
 	private String senha;
 	
 	public CredenciaisDTO() {
