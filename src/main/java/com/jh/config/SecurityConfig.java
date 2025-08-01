@@ -83,11 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    CorsConfiguration configuration = new CorsConfiguration();
 
 	    // Defina explicitamente as origens permitidas
-	    configuration.setAllowedOriginPatterns(Arrays.asList(
-	        "http://localhost:3000",  // Durante desenvolvimento local
-	        "https://camarafrontend-production.up.railway.app" // Produção
-	    ));
-
+	    configuration.setAllowedOriginPatterns(Arrays.asList("*"));
 	    configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
 	    configuration.setAllowedHeaders(Arrays.asList("*"));
 	    configuration.setAllowCredentials(true);
