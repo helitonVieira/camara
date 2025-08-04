@@ -47,7 +47,7 @@ public class VereadorResource {
 
 	// @PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{codVereador}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(/* @Valid */ @RequestBody VereadorDTO objDto, @PathVariable Integer codVereador) {
+	public ResponseEntity<Void> update(/* @Valid */ @RequestBody VereadorNewDTO objDto, @PathVariable Integer codVereador) {
 		Vereador obj = service.fromDTO(objDto);
 		obj.setCodVereador(codVereador);
 		obj = service.update(obj);

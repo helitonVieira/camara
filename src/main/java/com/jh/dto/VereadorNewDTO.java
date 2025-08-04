@@ -1,6 +1,8 @@
 package com.jh.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.jh.domain.Municipio;
 import com.jh.domain.Vereador;
@@ -20,7 +22,7 @@ public class VereadorNewDTO implements Serializable {
 	    private Boolean indPresidente;	 
 	    private String senha;
 	    private Municipio municipio;
-
+	    private Set<Integer> perfis = new HashSet<>(); 
 	   
 	
 	public VereadorNewDTO() {
@@ -101,4 +103,12 @@ public class VereadorNewDTO implements Serializable {
 		this.municipio = municipio;
 	}
 
+	public Set<Integer> getPerfis() {
+		return perfis;
+	}
+
+	public void setPerfis(Set<Integer> perfis) {
+		this.perfis = perfis;
+	}
+	
 }

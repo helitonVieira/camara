@@ -113,6 +113,13 @@ public class VereadorService {
 
 	private void updateData(Vereador newObj, Vereador obj) {
 		newObj.setNomVereador(obj.getNomVereador());
+		newObj.setEmail(obj.getEmail());
+		newObj.setSglPartido(obj.getSglPartido());
+		newObj.setFoto(obj.getFoto());
+		newObj.setIndPresidente(obj.getIndPresidente());
+		newObj.setSenha(obj.getSenha());
+		newObj.setMunicipio(obj.getMunicipio());
+		//newObj.setPerfis(obj.getPerfis());
 	}
 
 }

@@ -176,7 +176,10 @@ public class Vereador implements Serializable {
 
 	public void setLogins(List<UsuarioLogado> logins) {
 		this.logins = logins;
-	}    
+	}
 
+	public void setPerfis(Set<Integer> perfis) {
+		this.perfis = perfis;
+	}    
 	
 }
